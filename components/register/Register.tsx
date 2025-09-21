@@ -11,7 +11,7 @@ export const RegisterForm = () => {
 
   const handleRegister = async () => {
     try {
-      const res = await fetch("http://localhost:5002/register", {
+      const res = await fetch("http://localhost:5002/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, email, password, rePassword }),
