@@ -36,6 +36,6 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
 =======
-# .....LOADING_frontend
+# expense-tracker-frontend
 frontend part
 66d8ab5588838368fec40ac0c24de68a80d87b86
