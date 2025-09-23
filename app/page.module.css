@@ -1,8 +1,45 @@
 .main {
     display: flex;
+    background-color: rgb(206, 221, 216);
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
   }
-  
+
+  .styles.title {
+    display: flex;
+    background-color: rgb(107,ß 184, 184);
+    text-align: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+  .styles.description {
+    display: flex;
+    background-color: rgb(107, 184, 184);
+    text-align: center;
+    font-size: 1.2rem;
+    color: darkslategray;
+  }
+  .button {
+    text-decoration: none;
+    border: none;
+    border-radius: 8px;
+    color: rgb(19, 17, 17);
+    background-color: rgb(34, 139, 34);
+    padding: 0.5rem 1rem;
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(178, 182, 181);
+  }
+  .button:hover {
+    background-color: rgb(34, 139, 34);
+    color: white;
+    cursor: pointer;
+  }
+  .button:active {
+    background-color: rgb(0, 100, 0);
+  }
+ 

@@ -1,0 +1,58 @@
+.container {
+    background-color: #dfeaee;
+    padding: 2rem;
+    font-family: Arial, sans-serif;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+  
+  .logoutButton {
+    padding: 0.5rem 1rem;
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .logoutButton:hover {
+    background-color: #d9363e;
+  }
+  
+  .sections {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .section {
+    flex: 1 1 400px;
+  }
+  
+  .table {
+    width: 100%;
+    margin-top: 1rem;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid #ccc;
+    padding: 0.5rem;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f0f0f0;
+  }
+  
+  .totals {
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+  

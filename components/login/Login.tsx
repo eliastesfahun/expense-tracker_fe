@@ -1,7 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
 interface User {
@@ -13,9 +12,24 @@ interface User {
 export const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
+  // 🔹 Redirect if already logged in
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, [router]);
+
   const handleLogin = async () => {
+    if (!email || !password) {
+      alert("Email and password are required!");
+      return;
+    }
+
+    setLoading(true);
     try {
       const res = await fetch("http://localhost:5002/api/login", {
         method: "POST",
@@ -26,7 +40,7 @@ export const LoginForm = () => {
       const data = await res.json();
 
       if (res.ok) {
-        // Save user data in localStorage
+        // ✅ Save user in localStorage
         const user: User = {
           id: data.id,
           username: data.username,
@@ -34,12 +48,10 @@ export const LoginForm = () => {
         localStorage.setItem("user", JSON.stringify(user));
 
         alert("User logged in successfully!");
-
-        // Clear input fields
         setEmail("");
         setPassword("");
 
-        // Redirect to dashboard or home page
+        // ✅ Redirect to dashboard
         router.push("/dashboard");
       } else {
         alert(data.message || "Login failed");
@@ -47,11 +59,15 @@ export const LoginForm = () => {
     } catch (err) {
       console.error(err);
       alert("Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div>
+      <h2>Login</h2>
+
       <label>Email :</label>
       <input
         type="email"
@@ -66,9 +82,9 @@ export const LoginForm = () => {
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <button onClick={handleLogin}>Submit</button>
-      <Link href="/register">Open account</Link>
+      <button onClick={handleLogin} disabled={loading}>
+        {loading ? "Logging in..." : "Submit"}
+      </button>
     </div>
   );
 };
-
