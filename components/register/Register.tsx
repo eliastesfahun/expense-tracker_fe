@@ -1,13 +1,16 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Profile from "@/components/profile/Profile";
 
 export const RegisterForm = () => {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
+  const [user, setUser] = useState<any>(null); // store registered user
 
   const handleRegister = async () => {
     try {
@@ -19,13 +22,19 @@ export const RegisterForm = () => {
 
       const data = await res.json();
 
-      if (res.ok) {    // or we can use -->    (data.message === "User logged in successfully!")
+      if (res.ok) {
+        // Save user locally to show profile
+        setUser(data.user || { username, email });
         alert("User registered successfully!");
 
+        // Clear input fields
         setUsername("");
         setEmail("");
         setPassword("");
         setRePassword("");
+
+        // Auto redirect to login after 3 seconds
+        setTimeout(() => router.push("/login"), 3000);
       } else {
         alert(data.message || "Registration failed");
       }
@@ -35,22 +44,32 @@ export const RegisterForm = () => {
     }
   };
 
+  if (user) {
+    return (
+      <div>
+        <h2>Registration Successful!</h2>
+        <Profile user={user} />
+        <p>Redirecting to login...</p>
+      </div>
+    );
+  }
+
   return (
     <div>
-      <label>Username : </label>
+      <label>Username:</label>
       <input value={username} onChange={(e) => setUsername(e.target.value)} />
 
-      <label>Email : </label>
+      <label>Email:</label>
       <input value={email} onChange={(e) => setEmail(e.target.value)} />
 
-      <label>Password : </label>
+      <label>Password:</label>
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
 
-      <label>rePassword : </label>
+      <label>Re-enter Password:</label>
       <input
         type="password"
         value={rePassword}
@@ -58,8 +77,6 @@ export const RegisterForm = () => {
       />
 
       <button onClick={handleRegister}>Submit</button>
-      <Link href="/login">Go to Login</Link>
-
     </div>
   );
 };
